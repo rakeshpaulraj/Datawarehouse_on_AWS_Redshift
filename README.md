@@ -6,6 +6,7 @@ A startup called Sparkify wants to analyze the data they've been collecting on s
 
 The purpose of this project is to create a Datawarehouse in Amazon Redshift with Dimension and Fact tables designed to optimize queries on song play analysis, which will help analytics team in understanding what songs users are listening to. To achieve this, the ETL pipeline needs to be built to load the Songs and Song play log data from AWS S3 layer into a Staging layer in Redshift and then subsequently load the data in to the Redshift datawarehouse which will be used by the analytics team for further analysis. 
 
+
 ## Cloud Architecture
 
 In this project, the source JSON datasets, Intermediate Staging layer and the final Datawarehouse - All these 3 entities exists in cloud.
@@ -51,6 +52,28 @@ The various AWS components involved or required in this are as follows:
   * Using IAM, you can create and manage AWS users and groups, and use permissions to allow and deny their access to AWS resources. 
   * In this project, a new IAM role is created and the Policy to read S3 buckets is attached. Later this role is assigned to Redshift clusters in order to authorize the data extraction from S3 buckets.
 
+
+## AWS config file (*Important !*)
+The AWS cloud configuration such as Host/Endpoint name, DB Name, Port, Username, Password, IAM Role, S3 Bucket locations are all set in a config file named as "dwh.cfg" where "dwh" is the database name used in this project. For confidential reasons, this file is not added in Github as the file is setup in gitignore. While cloning the project, please make sure to add create the < database-name >.cfg file and assign the values for the config variables.
+
+The config structure and variables are as follows:
+```
+[CLUSTER]  
+HOST=  
+DB_NAME=  
+DB_USER=  
+DB_PASSWORD=  
+DB_PORT=5439  
+REGION=us-west-2  
+  
+[IAM_ROLE]  
+ARN=  
+  
+[S3]  
+LOG_DATA='s3://udacity-dend/log_data'  
+LOG_JSONPATH='s3://udacity-dend/log_json_path.json'  
+SONG_DATA='s3://udacity-dend/song_data'  
+```
 
 
 ## Source(s)
